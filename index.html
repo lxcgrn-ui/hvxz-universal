@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HVXZ UNIVERSAL HUB</title>
+    <style>
+        :root {
+            --hvxz-cyan: #00F0FF;
+            --hvxz-purple: #8A2BE2;
+            --hvxz-bg: #05050A;
+            --hvxz-panel: rgba(13, 13, 26, 0.6);
+            --transition-curve: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Consolas', 'Courier New', monospace;
+        }
+
+        body {
+            background-color: var(--hvxz-bg);
+            color: var(--hvxz-cyan);
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #CyberCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .hub-container {
+            width: 90%;
+            max-width: 1200px;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            z-index: 1;
+        }
+
+        .header-section {
+            text-align: center;
+            animation: GlitchIn 1.2s var(--transition-curve) forwards;
+        }
+
+        .title-glitch {
+            font-size: 3rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            text-shadow: 0 0 10px var(--hvxz-cyan), 0 0 20px var(--hvxz-cyan);
+            position: relative;
+        }
+
+        .title-glitch::before, .title-glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.8;
+        }
+
+        .title-glitch::before {
+            left: 2px;
+            text-shadow: -2px 0 var(--hvxz-purple);
+            animation: GlitchAnim 2s infinite linear alternate-reverse;
+        }
+
+        .title-glitch::after {
+            left: -2px;
+            text-shadow: -2px 0 var(--hvxz-cyan);
+            animation: GlitchAnim 3s infinite linear alternate-reverse;
+        }
+
+        .module-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .hvxz-module {
+            background: var(--hvxz-panel);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            border-radius: 8px;
+            padding: 30px;
+            text-decoration: none;
+            color: inherit;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s var(--transition-curve);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .hvxz-module::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 240, 255, 0.1), transparent);
+            transform: skewX(-20deg);
+            transition: 0.5s;
+        }
+
+        .hvxz-module:hover {
+            transform: translateY(-5px) scale(1.02);
+            border-color: var(--hvxz-cyan);
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.3), inset 0 0 15px rgba(0, 240, 255, 0.1);
+        }
+
+        .hvxz-module:hover::before {
+            left: 200%;
+        }
+
+        .module-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(0, 240, 255, 0.3);
+            padding-bottom: 10px;
+        }
+
+        .module-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .module-status {
+            font-size: 0.8rem;
+            background: rgba(0, 240, 255, 0.1);
+            padding: 4px 8px;
+            border-radius: 4px;
+            border: 1px solid var(--hvxz-cyan);
+            animation: Pulse 2s infinite;
+        }
+
+        .module-desc {
+            font-size: 0.95rem;
+            color: #A0A0B0;
+            line-height: 1.5;
+        }
+
+        @keyframes GlitchIn {
+            0% { opacity: 0; transform: translateY(-20px) scale(0.98); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        @keyframes GlitchAnim {
+            0% { clip-path: inset(10% 0 80% 0); }
+            20% { clip-path: inset(80% 0 5% 0); }
+            40% { clip-path: inset(40% 0 40% 0); }
+            60% { clip-path: inset(90% 0 2% 0); }
+            80% { clip-path: inset(20% 0 60% 0); }
+            100% { clip-path: inset(50% 0 30% 0); }
+        }
+
+        @keyframes Pulse {
+            0% { box-shadow: 0 0 0 0 rgba(0, 240, 255, 0.4); }
+            70% { box-shadow: 0 0 0 6px rgba(0, 240, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 240, 255, 0); }
+        }
+
+        @media (max-width: 768px) {
+            .title-glitch { font-size: 2rem; }
+            .module-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="CyberCanvas"></canvas>
+
+    <div class="hub-container">
+        <div class="header-section">
+            <div class="title-glitch" data-text="HVXZ UNIVERSAL">HVXZ UNIVERSAL</div>
+            <p style="margin-top: 10px; color: #8A2BE2; letter-spacing: 2px;">[ CENTRALIZED DEPLOYMENT NODE ]</p>
+        </div>
+
+        <div class="module-grid">
+            <a href="https://hvxz-script.vercel.app" target="_blank" class="hvxz-module">
+                <div class="module-header">
+                    <span class="module-title">HVXZ Script</span>
+                    <span class="module-status">ONLINE</span>
+                </div>
+                <div class="module-desc">
+                    Roblox Exploit Environment. 
+                    <br><br>
+                    > INITIALIZING LUA INJECTION...
+                    <br>
+                    > BYPASS PROTOCOLS ACTIVE.
+                </div>
+            </a>
+
+            <a href="https://hvxz-system-clear.vercel.app" target="_blank" class="hvxz-module">
+                <div class="module-header">
+                    <span class="module-title">HVXZ System Clear</span>
+                    <span class="module-status">ONLINE</span>
+                </div>
+                <div class="module-desc">
+                    Windows OS Optimization & Telemetry Removal.
+                    <br><br>
+                    > PURGING CACHE DIRECTORIES...
+                    <br>
+                    > KERNEL OPTIMIZATION SECURED.
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('CyberCanvas');
+        const ctx = canvas.getContext('2d', { alpha: false });
+        
+        let width, height;
+        let particles = [];
+        
+        const initCanvas = () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            ctx.fillStyle = '#05050A';
+            ctx.fillRect(0, 0, width, height);
+        };
+
+        window.addEventListener('resize', () => {
+            initCanvas();
+            particles = [];
+            spawnParticles();
+        }, { passive: true });
+
+        class DataStream {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.length = Math.random() * 80 + 20;
+                this.speed = Math.random() * 2 + 0.5;
+                this.opacity = Math.random() * 0.5 + 0.1;
+            }
+
+            update() {
+                this.y += this.speed;
+                if (this.y > height + this.length) {
+                    this.reset();
+                    this.y = -this.length;
+                }
+            }
+
+            draw() {
+                ctx.beginPath();
+                const gradient = ctx.createLinearGradient(this.x, this.y - this.length, this.x, this.y);
+                gradient.addColorStop(0, 'rgba(0, 240, 255, 0)');
+                gradient.addColorStop(1, `rgba(0, 240, 255, ${this.opacity})`);
+                
+                ctx.strokeStyle = gradient;
+                ctx.lineWidth = 1;
+                ctx.moveTo(this.x, this.y - this.length);
+                ctx.lineTo(this.x, this.y);
+                ctx.stroke();
+            }
+        }
+
+        const spawnParticles = () => {
+            const count = Math.floor((width * height) / 15000); 
+            for (let i = 0; i < count; i++) {
+                particles.push(new DataStream());
+            }
+        };
+
+        const renderLoop = () => {
+            ctx.fillStyle = 'rgba(5, 5, 10, 0.2)'; 
+            ctx.fillRect(0, 0, width, height);
+
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+            }
+
+            requestAnimationFrame(renderLoop);
+        };
+
+        initCanvas();
+        spawnParticles();
+        requestAnimationFrame(renderLoop);
+    </script>
+</body>
+</html>
