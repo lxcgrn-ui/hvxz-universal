@@ -87,12 +87,14 @@
         }
         
         .module-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
             gap: 30px;
         }
         
         .hvxz-module {
+            flex: 0 0 calc(50% - 15px);
             background: var(--hvxz-panel);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
@@ -183,7 +185,7 @@
         
         @media (max-width: 768px) {
             .title-glitch { font-size: 2rem; }
-            .module-grid { grid-template-columns: 1fr; }
+            .hvxz-module { flex: 0 0 100%; }
         }
     </style>
 </head>
