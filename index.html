@@ -169,12 +169,19 @@
         }
 
         .hvxz-module.white-grey-theme::before {
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
         }
 
         .hvxz-module.white-grey-theme:hover {
             border-color: #FFFFFF;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.15), inset 0 0 15px rgba(255, 255, 255, 0.05);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.25), inset 0 0 15px rgba(255, 255, 255, 0.05);
+        }
+
+        .hvxz-module.white-grey-theme .module-status {
+            color: #FFFFFF;
+            border-color: #FFFFFF;
+            background: rgba(255, 255, 255, 0.08);
+            animation: PulseWhite 2s infinite;
         }
         
         @keyframes GlitchIn {
@@ -195,6 +202,12 @@
             0% { box-shadow: 0 0 0 0 rgba(0, 240, 255, 0.4); }
             70% { box-shadow: 0 0 0 6px rgba(0, 240, 255, 0); }
             100% { box-shadow: 0 0 0 0 rgba(0, 240, 255, 0); }
+        }
+
+        @keyframes PulseWhite {
+            0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.35); }
+            70% { box-shadow: 0 0 0 6px rgba(255, 255, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
         }
         
         @media (max-width: 768px) {
@@ -257,7 +270,7 @@
             <a href="https://h-c-c-d.vercel.app" target="_blank" class="hvxz-module white-grey-theme">
                 <div class="module-header" style="border-bottom-color: rgba(255, 255, 255, 0.2);">
                     <span class="module-title">HVXZ character count detection</span>
-                    <span class="module-status" style="color: #D0D0D0; border-color: #D0D0D0; background: rgba(255, 255, 255, 0.05);">ONLINE</span>
+                    <span class="module-status">ONLINE</span>
                 </div>
                 <div class="module-desc" style="color: #A0A0A0;">
                     String Length &amp; Text Analysis Node.
